@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="cambiar">Cambiar</string>
+    <string name="resetear">Resetear</string>
+    <string name="texto_a_cambiar">Texto a cambiar</string>
+</resources>
