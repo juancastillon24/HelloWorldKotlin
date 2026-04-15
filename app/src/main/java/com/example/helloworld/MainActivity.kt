@@ -1,5 +1,6 @@
 package com.example.helloworld
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -21,10 +22,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        setTitle("Menu Principal")
         val btnResetear: Button=findViewById(R.id.btn_reset)
         btnResetear.setOnClickListener(this)
         val btnCambiar: Button=findViewById(R.id.btn_cambiar)
         btnCambiar.setOnClickListener(this)
+        val btnCalculadora: Button=findViewById(R.id.btn_calculadora)
+        btnCalculadora.setOnClickListener (this)
     }
 
     override fun onClick(p0: View?){
@@ -41,6 +45,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 toast= Toast.makeText(this.application,"Texto cambiado con exito", Toast.LENGTH_SHORT)
                 toast.show()
                 tvTexto.text=tvTextoaCambiar.text
+            }
+            R.id.btn_calculadora ->{
+                val intent = Intent(this, Calculadora::class.java)
+                startActivity(intent)
             }
         }
     }
