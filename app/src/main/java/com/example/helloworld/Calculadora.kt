@@ -33,6 +33,12 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
 
         tv_Resultado = findViewById(R.id.tv_textoResultado)
         tv_Resumen = findViewById(R.id.tv_Resumen)
+        /**
+         * Inicializo el hint y el text del text view vacios
+         * para que no falle si empiezas poniendo un simbolo
+         */
+        tv_Resultado.text = ""
+        tv_Resultado.hint = ""
 
         val btn_0: Button = findViewById(R.id.btn_0)
         btn_0.setOnClickListener(this)
@@ -233,6 +239,7 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
                         tv_Resultado.text = ""
                     }
                     tv_Resumen.append(" - ")
+                    tv_Resultado.append("-")
                     operacion = "Resta"
                 } catch (e: NumberFormatException) {
                     tv_Resultado.hint = ""
@@ -242,8 +249,10 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_dec -> {
-                tv_Resultado.append(".")
-                tv_Resumen.append(".")
+                if(!tv_Resultado.text.toString().contains(".")){
+                    tv_Resultado.append(".")
+                    tv_Resumen.append(".")
+                }
             }
 
             R.id.btn_calc -> {
