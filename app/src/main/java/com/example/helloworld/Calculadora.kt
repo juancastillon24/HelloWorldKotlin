@@ -14,6 +14,8 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
 
     var aux: Double = 0.0
     var operacion: String = ""
+    var resultado: Double = 0.0
+
 
     lateinit var tv_Resultado: TextView
     lateinit var tv_Resumen: TextView
@@ -128,10 +130,9 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_clear -> {
-                tv_Resultado.text = ""
+                clear()
                 tv_Resultado.hint = ""
                 tv_Resumen.text = ""
-
             }
 
             /**
@@ -139,58 +140,105 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
              * si no se inserta número este se asigna automaticamente a 0
              */
             R.id.btn_div -> {
-                if (tv_Resultado.text.isEmpty()) {
-                    tv_Resultado.hint = "0.0"
-                    tv_Resultado.text = ""
-                } else {
-                    aux = tv_Resultado.text.toString().toDouble()
-                    tv_Resultado.hint = tv_Resultado.text
-                    tv_Resultado.text = ""
+                try {
+                    if (tv_Resultado.text.isEmpty() && tv_Resultado.hint.isEmpty()) {
+                        tv_Resultado.hint = "0.0"
+                        tv_Resultado.text = ""
+                        tv_Resumen.text = "0.0"
+                    } else {
+                        if (!tv_Resultado.text.isEmpty()) {
+                            aux = tv_Resultado.text.toString().toDouble()
+                        } else {
+                            aux = tv_Resultado.hint.toString().toDouble()
+                            tv_Resumen.append(tv_Resultado.hint)
+                        }
+                        tv_Resultado.hint = tv_Resultado.text
+                        tv_Resultado.text = ""
+                    }
+                    tv_Resumen.append(" / ")
+                    operacion = "Division"
+
+                } catch (e: NumberFormatException) {
+                    tv_Resultado.hint = ""
+                    tv_Resumen.append(" / ")
+                    operacion = "Division"
                 }
-                tv_Resumen.append("/")
-                operacion = "Division"
             }
 
             R.id.btn_mult -> {
-                if (tv_Resultado.text.isEmpty()) {
-                    aux = 0.0
-                    tv_Resultado.hint = "0.0"
-                    tv_Resultado.text = ""
-                } else {
-                    aux = tv_Resultado.text.toString().toDouble()
-                    tv_Resultado.hint = tv_Resultado.text
-                    tv_Resultado.text = ""
+                try {
+                    if (tv_Resultado.text.isEmpty() && tv_Resultado.hint.isEmpty()) {
+                        aux = 0.0
+                        tv_Resultado.hint = "0.0"
+                        tv_Resultado.text = ""
+                    } else {
+                        if (!tv_Resultado.text.isEmpty()) {
+                            aux = tv_Resultado.text.toString().toDouble()
+                        } else {
+                            aux = tv_Resultado.hint.toString().toDouble()
+                            tv_Resumen.append(tv_Resultado.hint)
+                        }
+                        tv_Resultado.hint = tv_Resultado.text
+                        tv_Resultado.text = ""
+                    }
+                    tv_Resumen.append(" * ")
+                    operacion = "Multiplicacion"
+
+                } catch (e: NumberFormatException) {
+                    tv_Resultado.hint = ""
+                    tv_Resumen.append(" * ")
+                    operacion = "Multiplicacion"
                 }
-                tv_Resumen.append("*")
-                operacion = "Multiplicacion"
             }
 
             R.id.btn_sumar -> {
-                if (tv_Resultado.text.isEmpty()) {
-                    aux = 0.0
-                    tv_Resultado.hint = "0.0"
-                    tv_Resultado.text = ""
-                } else {
-                    aux = tv_Resultado.text.toString().toDouble()
-                    tv_Resultado.hint = tv_Resultado.text
-                    tv_Resultado.text = ""
+                try {
+                    if (tv_Resultado.text.isEmpty() && tv_Resultado.hint.isEmpty()) {
+                        aux = 0.0
+                        tv_Resultado.hint = "0.0"
+                        tv_Resultado.text = ""
+                    } else {
+                        if (!tv_Resultado.text.isEmpty()) {
+                            aux = tv_Resultado.text.toString().toDouble()
+                        } else {
+                            aux = tv_Resultado.hint.toString().toDouble()
+                            tv_Resumen.append(tv_Resultado.hint)
+                        }
+                        tv_Resultado.hint = tv_Resultado.text
+                        tv_Resultado.text = ""
+                    }
+                    tv_Resumen.append(" + ")
+                    operacion = "Suma"
+                } catch (e: NumberFormatException) {
+                    tv_Resultado.hint = ""
+                    tv_Resumen.append(" + ")
+                    operacion = "Suma"
                 }
-                tv_Resumen.append("+")
-                operacion = "Suma"
             }
 
             R.id.btn_restar -> {
-                if (tv_Resultado.text.isEmpty()) {
-                    aux = 0.0
-                    tv_Resultado.hint = "0.0"
-                    tv_Resultado.text = ""
-                } else {
-                    aux = tv_Resultado.text.toString().toDouble()
-                    tv_Resultado.hint = tv_Resultado.text
-                    tv_Resultado.text = ""
+                try {
+                    if (tv_Resultado.text.isEmpty() && tv_Resultado.hint.isEmpty()) {
+                        aux = 0.0
+                        tv_Resultado.hint = "0.0"
+                        tv_Resultado.text = ""
+                    } else {
+                        if (!tv_Resultado.text.isEmpty()) {
+                            aux = tv_Resultado.text.toString().toDouble()
+                        } else {
+                            aux = tv_Resultado.hint.toString().toDouble()
+                            tv_Resumen.append(tv_Resultado.hint)
+                        }
+                        tv_Resultado.hint = tv_Resultado.text
+                        tv_Resultado.text = ""
+                    }
+                    tv_Resumen.append(" - ")
+                    operacion = "Resta"
+                } catch (e: NumberFormatException) {
+                    tv_Resultado.hint = ""
+                    tv_Resumen.append(" - ")
+                    operacion = "Resta"
                 }
-                tv_Resumen.append("-")
-                operacion = "Resta"
             }
 
             R.id.btn_dec -> {
@@ -202,37 +250,61 @@ class Calculadora : AppCompatActivity(), View.OnClickListener {
                 /*
                 Inicializo el resultado para poder asignarlo mas tarde
                  */
-                var resultado: Double = 0.0
                 val numero_act: Double = tv_Resultado.text.toString().toDoubleOrNull() ?: 0.0
                 if (operacion.equals("Division")) {
-                    if (numero_act <= 0) {
-                        tv_Resultado.hint="ERROR: El divisor no puede ser 0"
-                        tv_Resultado.text=""
+                    if (numero_act == 0.0) {
+                        tv_Resultado.hint = "ERROR: El divisor no puede ser 0"
+                        tv_Resultado.text = ""
+                        tv_Resumen.append(" = ${tv_Resultado.hint}\n")
+                        clear()
                     } else {
                         resultado = aux / numero_act
                         aux = resultado
-                        tv_Resultado.text = resultado.toString()
+                        tv_Resumen.append(" = ${resultado.toString()} \n")
+                        tv_Resultado.hint = resultado.toString()
+
                     }
                 } else if (operacion.equals("Multiplicacion")) {
                     resultado = aux * numero_act
                     aux = resultado
-                    tv_Resultado.text = resultado.toString()
+                    tv_Resumen.append(" = ${resultado.toString()} \n")
+                    tv_Resultado.hint = resultado.toString()
+
                 } else if (operacion.equals("Suma")) {
                     resultado = aux + numero_act
                     aux = resultado
-                    tv_Resultado.text = resultado.toString()
+                    tv_Resumen.append(" = ${resultado.toString()} \n")
+                    tv_Resultado.hint = resultado.toString()
+
                 } else if (operacion.equals("Resta")) {
                     resultado = aux - numero_act
                     aux = resultado
-                    tv_Resultado.text = resultado.toString()
+                    tv_Resumen.append(" = ${resultado.toString()} \n")
+                    tv_Resultado.hint = resultado.toString()
+
+                } else if (operacion.isEmpty()) {
+                    if (tv_Resultado.text.isEmpty() && tv_Resultado.hint.isEmpty()) {
+                        tv_Resumen.append("No se han introducido valores\n")
+                        tv_Resultado.hint = resultado.toString()
+                    } else if (tv_Resultado.text.isEmpty()) {
+                        tv_Resumen.append("${tv_Resultado.hint}\n")
+                        tv_Resultado.hint = resultado.toString()
+                    } else resultado = tv_Resultado.text.toString().toDouble()
                 }
-                tv_Resumen.append(" = ${resultado.toString()}")
+                tv_Resultado.text = ""
                 operacion = ""
             }
+
             R.id.btn_volver -> {
-                val intent = Intent (this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
         }
+    }
+
+    fun clear() {
+        tv_Resultado.text = ""
+        aux = 0.0;
+        resultado = 0.0
     }
 }

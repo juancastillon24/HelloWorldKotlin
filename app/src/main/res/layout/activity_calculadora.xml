@@ -195,7 +195,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="40dp" />
+                    android:layout_marginLeft="15dp"
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
