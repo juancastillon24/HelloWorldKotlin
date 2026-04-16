@@ -1,5 +1,6 @@
 package com.example.helloworld
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnResetear.setOnClickListener(this)
         val btnCambiar: Button=findViewById(R.id.btn_cambiar)
         btnCambiar.setOnClickListener(this)
+        val btnCompose: Button=findViewById(R.id.btn_compose)
+        btnCompose.setOnClickListener(this)
+
     }
 
     override fun onClick(p0: View?){
@@ -41,6 +45,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 toast= Toast.makeText(this.application,"Texto cambiado con exito", Toast.LENGTH_SHORT)
                 toast.show()
                 tvTexto.text=tvTextoaCambiar.text
+            }
+            R.id.btn_compose -> {
+                val intent: Intent = Intent(this, PruebaCompose::class.java)
+                startActivity(intent)
             }
         }
     }
