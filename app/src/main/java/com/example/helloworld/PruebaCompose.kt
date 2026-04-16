@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -31,8 +33,16 @@ class PruebaCompose : ComponentActivity() {
 
             var textFieldState by remember { mutableStateOf("") }
 
+            var sizeState by remember { mutableStateOf(400.dp) }
+
+            val size by animateDpAsState(
+                targetValue = sizeState
+            )
+
             Scaffold(
-                modifier = Modifier.fillMaxSize(),
+
+                modifier = Modifier
+                    .fillMaxSize(),
                 // Se asigna el host del Snackbar
                 snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
                 topBar = {
@@ -44,7 +54,8 @@ class PruebaCompose : ComponentActivity() {
                         )
                     )
                 }
-            ) { paddingValues -> // 4. Recibir los PaddingValues del Scaffold
+            ) {
+                paddingValues -> // 4. Recibir los PaddingValues del Scaffold
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -52,6 +63,7 @@ class PruebaCompose : ComponentActivity() {
                         .fillMaxSize()
                         .padding(paddingValues) // Aplicar el padding obligatorio
                         .padding(horizontal = 30.dp)
+                        .background(Color.Blue)
                 ) {
                     TextField(
                         value = textFieldState,
@@ -77,6 +89,7 @@ class PruebaCompose : ComponentActivity() {
                             Text("Saludo")
                         }
 
+
                         Spacer(modifier = Modifier.padding(16.dp))
 
                         Button(onClick = {
@@ -87,6 +100,38 @@ class PruebaCompose : ComponentActivity() {
                             Text("Volver")
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Box(
+
+                        modifier = Modifier
+                            .size(size)
+                            .background(Color.Red),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column (
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .padding(8.dp)
+                        ) {
+                            Button(onClick = {
+                                sizeState += 50.dp
+                            }) {
+                                Text("Incrementar")
+                            }
+                            Spacer(modifier = Modifier.padding(16.dp))
+                            Button(onClick = {
+                                sizeState -= 50.dp
+                            }) {
+                                Text("Reducir")
+                            }
+                        }
+
+                    }
+
+
                 }
             }
         }
