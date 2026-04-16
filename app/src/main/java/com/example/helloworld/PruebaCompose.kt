@@ -4,16 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 class PruebaCompose : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -31,7 +34,16 @@ class PruebaCompose : ComponentActivity() {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
                 // Se asigna el host del Snackbar
-                snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+                snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+                topBar = {
+                    TopAppBar(
+                        title = { Text("Prueba Compose") },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                    )
+                }
             ) { paddingValues -> // 4. Recibir los PaddingValues del Scaffold
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,7 +65,8 @@ class PruebaCompose : ComponentActivity() {
 
                     Row(
                         modifier = Modifier
-                            .padding(16.dp),
+                            .border(5.dp, Color.Red, MaterialTheme.shapes.small)
+                            .padding(8.dp),
                     ) {
                         Button(onClick = {
                             // Lanzar la corrutina para ejecutar la función suspendida
