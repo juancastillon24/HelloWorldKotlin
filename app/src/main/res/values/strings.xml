@@ -7,4 +7,5 @@
     <string name="compose">Compose</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_prueba_compose2">PruebaCompose2</string>
+    <string name="title_activity_ventana_carga">VentanaCarga</string>
 </resources>

@@ -125,10 +125,10 @@ class PruebaCompose : ComponentActivity() {
 
                         Button(onClick = {
                             // Usar el contexto obtenido de LocalContext
-                            val intent = Intent(context, MainActivity::class.java)
+                            val intent = Intent(context, VentanaCarga::class.java)
                             context.startActivity(intent)
                         }) {
-                            Text("Volver")
+                            Text("Compose 2")
                         }
                     }
 
@@ -172,10 +172,10 @@ class PruebaCompose : ComponentActivity() {
                     Button(
                         modifier = Modifier.padding(top = 20.dp),
                         onClick = {
-                        val intent = Intent(context, PruebaCompose2::class.java)
+                        val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                     }) {
-                        Text("Compose 2")
+                        Text("Volver")
                     }
 
                 }
