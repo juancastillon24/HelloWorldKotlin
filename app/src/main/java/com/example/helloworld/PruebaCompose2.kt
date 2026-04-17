@@ -11,9 +11,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -57,9 +60,10 @@ class PruebaCompose2 : ComponentActivity() {
             Scaffold(
                 modifier = Modifier
                     .fillMaxSize(),
+
                 topBar = {
                     TopAppBar(
-                        title = { Text("Compose 2") },
+                        title = { Text("Prueba Compose 2") },
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = MaterialTheme.colorScheme.primaryContainer,
                             titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -68,11 +72,28 @@ class PruebaCompose2 : ComponentActivity() {
                 }
             ) { paddingValues -> // 4. Recibir los PaddingValues del Scaffold
                 Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(paddingValues) // Aplicar el padding obligatorio
                         .padding(horizontal = 30.dp)
                 ) {
+
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .background(Color.Yellow)
+                            .size(200.dp),
+                    ) {
+                        Column(
+
+                        ) {
+                            CircularProgressBar(percentage = 1f, number = 100)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     Button(
                         onClick = {
                             val intent = Intent(context, PruebaCompose::class.java)
@@ -81,20 +102,7 @@ class PruebaCompose2 : ComponentActivity() {
                     ) {
                         Text(text = "Volver a Compose 1")
                     }
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Yellow)
-
-                    ) {
-
-                    }
                 }
-            }
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                CircularProgressBar(percentage = 1f, number = 100)
             }
         }
     }
