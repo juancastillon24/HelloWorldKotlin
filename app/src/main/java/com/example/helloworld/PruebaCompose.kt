@@ -49,12 +49,11 @@ class PruebaCompose : ComponentActivity() {
             val size by animateDpAsState(
                 targetValue = sizeState,
                 //Animacion que incrementa gradualmente hasta el valor indicado
-                /*
                 tween (
                     durationMillis = 3000,
                     delayMillis = 300,
                     easing = LinearOutSlowInEasing
-                )*/
+                )
                 //Animacion que incrementa gradualmente hasta el valor indicado,
                 //pero rebota en el valor deseado
                 /*
@@ -64,12 +63,12 @@ class PruebaCompose : ComponentActivity() {
 
                 //Animacion que puede ajustar distintas velocidades
                 //a medida que pasa el tiempo
-                keyframes {
+                /*keyframes {
                     durationMillis = 5000
                     sizeState at 0 with LinearEasing
                     sizeState * 1.5f at 1000 with FastOutLinearInEasing
                     sizeState * 2f at 5000
-                }
+                }*/
             )
 
             Scaffold(
@@ -122,7 +121,6 @@ class PruebaCompose : ComponentActivity() {
                             Text("Saludo")
                         }
 
-
                         Spacer(modifier = Modifier.padding(16.dp))
 
                         Button(onClick = {
@@ -170,9 +168,15 @@ class PruebaCompose : ComponentActivity() {
                                 Text("Reducir")
                             }
                         }
-
                     }
-
+                    Button(
+                        modifier = Modifier.padding(top = 20.dp),
+                        onClick = {
+                        val intent = Intent(context, PruebaCompose2::class.java)
+                        context.startActivity(intent)
+                    }) {
+                        Text("Compose 2")
+                    }
 
                 }
             }

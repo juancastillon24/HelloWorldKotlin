@@ -5,4 +5,6 @@
     <string name="texto_a_cambiar">Texto a cambiar</string>
     <string name="title_activity_prueba_compose">PruebaCompose</string>
     <string name="compose">Compose</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_activity_prueba_compose2">PruebaCompose2</string>
 </resources>
