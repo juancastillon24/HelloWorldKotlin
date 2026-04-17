@@ -4,7 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -36,7 +47,29 @@ class PruebaCompose : ComponentActivity() {
             var sizeState by remember { mutableStateOf(400.dp) }
 
             val size by animateDpAsState(
-                targetValue = sizeState
+                targetValue = sizeState,
+                //Animacion que incrementa gradualmente hasta el valor indicado
+                /*
+                tween (
+                    durationMillis = 3000,
+                    delayMillis = 300,
+                    easing = LinearOutSlowInEasing
+                )*/
+                //Animacion que incrementa gradualmente hasta el valor indicado,
+                //pero rebota en el valor deseado
+                /*
+                spring(
+                    Spring.DampingRatioHighBouncy
+                )*/
+
+                //Animacion que puede ajustar distintas velocidades
+                //a medida que pasa el tiempo
+                keyframes {
+                    durationMillis = 5000
+                    sizeState at 0 with LinearEasing
+                    sizeState * 1.5f at 1000 with FastOutLinearInEasing
+                    sizeState * 2f at 5000
+                }
             )
 
             Scaffold(
@@ -103,11 +136,20 @@ class PruebaCompose : ComponentActivity() {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Box(
+                    val infiniteTransition = rememberInfiniteTransition()
+                    val color by infiniteTransition.animateColor(
+                        initialValue = Color.Red,
+                        targetValue = Color.Green,
+                        animationSpec = infiniteRepeatable(
+                            tween(durationMillis = 2000),
+                            repeatMode = RepeatMode.Reverse
+                        )
+                    )
 
+                    Box(
                         modifier = Modifier
                             .size(size)
-                            .background(Color.Red),
+                            .background(color),
                         contentAlignment = Alignment.Center
                     ) {
                         Column (
