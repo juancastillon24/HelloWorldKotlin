@@ -46,7 +46,7 @@ class VentanaCarga : ComponentActivity() {
                 CircularProgressBar(percentage = 1f, number = 100)
             }
             LaunchedEffect(Unit) {
-                delay(5000)
+                delay(3000)
                 val intent = Intent(context, PruebaCompose2::class.java)
                 context.startActivity(intent)
             }
@@ -64,7 +64,7 @@ fun CircularProgressBar(
     radius: Dp = 50.dp,
     color: Color = Color.Green,
     strokeWidth: Dp = 8.dp,
-    animDuration: Int = 5000,
+    animDuration: Int = 3000,
     animDelay: Int = 0
 ) {
     var animationPlayed by remember {
@@ -85,7 +85,6 @@ fun CircularProgressBar(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .size((radius * 2f) + 15.dp)
-            .background(Color.Blue)
     ) {
         Canvas(modifier = Modifier.size(radius * 2f)) {
             drawArc(
