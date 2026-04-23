@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelloWorld">
         <activity
-            android:name=".Calculadora"
+            android:name=".views.Calculadora"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
